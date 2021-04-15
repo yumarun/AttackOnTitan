@@ -4,5 +4,7 @@ using UnityEngine;
 
 public static class Values
 {
-    public static float springPower = 5.0f;
+    public static float springPower = 1.0f;
+    public static float powerToPlayer = 2000.0f;
+    public static float powerToBall = 1700.0f;
 }

@@ -6,6 +6,7 @@ public class BulletController : MonoBehaviour
 {
     void Update()
     {
+        GameObject.Find("Line2").GetComponent<LineRenderer>().SetPosition(1, transform.position);
         if (transform.position.y <= -10)
         {
             Destroy(gameObject);
@@ -16,6 +17,8 @@ public class BulletController : MonoBehaviour
     {
         if (collision.transform.tag != "Player")
         {
+            GameObject.Find("Line2").GetComponent<LineRenderer>().enabled = false;
+            AddPowerToPlayer.AddPower();
             WireController.isShooting = true;
             WireController.bulletColPos = transform.position;
             WireController.springPower = Values.springPower;

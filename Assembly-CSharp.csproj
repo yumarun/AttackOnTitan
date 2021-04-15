@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{B021E510-CA96-1EC2-09E9-B54B819A275F}</ProjectGuid>
+    <ProjectGuid>{AD924A5C-084A-4E1D-B715-6572E05BDB1D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -52,12 +52,13 @@
     <UnityVersion>2020.1.5f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\FirstPersonLook.cs" />
-    <Compile Include="Assets\Scripts\FirstPersonMovement.cs" />
     <Compile Include="Assets\Scripts\Jump.cs" />
+    <Compile Include="Assets\Scripts\FirstPersonLook.cs" />
+    <Compile Include="Assets\Scripts\AddPowerToPlayer.cs" />
     <Compile Include="Assets\Scripts\WireController.cs" />
-    <Compile Include="Assets\Scripts\BulletController.cs" />
+    <Compile Include="Assets\Scripts\FirstPersonMovement.cs" />
     <Compile Include="Assets\Scripts\Values.cs" />
+    <Compile Include="Assets\Scripts\BulletController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

@@ -8,6 +8,7 @@ public class WireController : MonoBehaviour
     [SerializeField] GameObject line1;
     [SerializeField] GameObject bulletPref;
     [SerializeField] Transform cameraTf;
+    public GameObject line2;
 
 
     public static float springPower = 10f;
@@ -23,6 +24,12 @@ public class WireController : MonoBehaviour
 
     void Update()
     {
+
+        if (springPower == Values.springPower)
+        {
+            line1.GetComponent<LineRenderer>().enabled = true;
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             ShootBall();
@@ -36,10 +43,12 @@ public class WireController : MonoBehaviour
         if (Vector3.Distance(player.transform.position, sj.connectedAnchor) <= 10.0f)
         {
             ResetWire();
+            
         }
 
         line1.GetComponent<LineRenderer>().SetPosition(0, player.transform.position);
         line1.GetComponent<LineRenderer>().SetPosition(1, bulletColPos);
+        line2.GetComponent<LineRenderer>().SetPosition(0, player.transform.position);
 
         sj.connectedAnchor = bulletColPos;
 
@@ -52,6 +61,7 @@ public class WireController : MonoBehaviour
         {
             line1.GetComponent<LineRenderer>().enabled = false;
         }
+
     }
 
     void ShootBall()
@@ -59,8 +69,11 @@ public class WireController : MonoBehaviour
         Transform tf = player.transform;
         GameObject bullet = Instantiate(bulletPref) as GameObject;
         bullet.transform.position = tf.position + tf.forward * 2 + tf.up;
-        Vector3 power = tf.forward - tf.up * cameraTf.localRotation.x * 1.2f;
-        bullet.GetComponent<Rigidbody>().AddForce(power * 1500);
+        Vector3 power = tf.forward - tf.up * cameraTf.localRotation.x * 2f;
+        Vector3 psp = player.GetComponent<Rigidbody>().velocity;
+        Vector3 absPsp = new Vector3(Mathf.Abs(psp.x), 0f, Mathf.Abs(psp.z));
+        line2.GetComponent<LineRenderer>().enabled = true;
+        bullet.GetComponent<Rigidbody>().AddForce(power * Values.powerToBall + absPsp);
     }
 
     void SetWire()
@@ -73,6 +86,5 @@ public class WireController : MonoBehaviour
         springPower = 0f;
         isShooting = false;
     }
-
 
 }
