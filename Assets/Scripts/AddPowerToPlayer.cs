@@ -6,11 +6,11 @@ public class AddPowerToPlayer : MonoBehaviour
 {
     [SerializeField] GameObject player;
 
-    public static void AddPower()
+    public static void AddPower(bool InputW)
     {
         GameObject player = GameObject.Find("Player");
         GameObject camera = GameObject.Find("Camera");
         Vector3 power = player.transform.forward - player.transform.up * camera.transform.localRotation.x * 2f;
-        player.GetComponent<Rigidbody>().AddForce(power * Values.powerToPlayer);
+        player.GetComponent<Rigidbody>().AddForce(power * Values.powerToPlayer * (InputW ? 0.5f : 1f));
     }
 }

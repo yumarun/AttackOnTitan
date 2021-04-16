@@ -18,7 +18,7 @@ public class BulletController : MonoBehaviour
         if (collision.transform.tag != "Player")
         {
             GameObject.Find("Line2").GetComponent<LineRenderer>().enabled = false;
-            AddPowerToPlayer.AddPower();
+            AddPowerToPlayer.AddPower(Input.GetKey(KeyCode.W));
             WireController.isShooting = true;
             WireController.bulletColPos = transform.position;
             WireController.springPower = Values.springPower;
