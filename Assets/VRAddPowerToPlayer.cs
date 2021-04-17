@@ -8,10 +8,10 @@ public class VRAddPowerToPlayer : MonoBehaviour
     {
         GameObject player = GameObject.Find("VRPlayer");
         Transform cameraTf = GameObject.Find("CenterEyeAnchor").transform;
-        Vector3 power = player.transform.forward - player.transform.up * cameraTf.rotation.x * 2f;
+        Vector3 power = player.transform.forward - player.transform.up * cameraTf.localRotation.x * 2f;
         Debug.Log(power + " " + player.transform.up * cameraTf.localRotation.x * 2f + " " + cameraTf.localRotation.x);
         Vector3 psp = player.GetComponent<Rigidbody>().velocity;
         Vector3 absPsp = new Vector3(Mathf.Abs(psp.x), 0f, Mathf.Abs(psp.z));
-        player.GetComponent<Rigidbody>().AddForce(power * Values.powerToPlayer + absPsp);
+        player.GetComponent<Rigidbody>().AddForce(power * Values.powerToPlayer);
     }
 }
