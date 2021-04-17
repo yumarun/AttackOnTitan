@@ -8,6 +8,8 @@ public class WireController : MonoBehaviour
     [SerializeField] GameObject line1;
     [SerializeField] GameObject bulletPref;
     [SerializeField] Transform cameraTf;
+
+
     public GameObject line2;
 
 
