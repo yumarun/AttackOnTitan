@@ -29,7 +29,9 @@ public class VRWireController : MonoBehaviour
             PlayerSpringJoint.spring = 0;
         }
 
-        Line2.GetComponent<LineRenderer>().SetPosition(0, player.transform.position);
+        Line2.GetComponent<LineRenderer>().SetPosition(0, player.transform.position - player.transform.up * 0.5f);
+
+        Debug.Log(player.transform.forward);
     }
 
     void ShootBall()
@@ -40,7 +42,7 @@ public class VRWireController : MonoBehaviour
         Vector3 power = tf.forward - tf.up * cameraTf.localRotation.x * 2f;
         Vector3 psp = player.GetComponent<Rigidbody>().velocity;
         Vector3 absPsp = new Vector3(Mathf.Abs(psp.x), 0f, Mathf.Abs(psp.z));
-        bullet.GetComponent<Rigidbody>().AddForce(power * Values.powerToBall + absPsp);
+        bullet.GetComponent<Rigidbody>().AddForce(power * Values.powerToBall);
 
         Line2.GetComponent<LineRenderer>().enabled = true;
         Line2.GetComponent<LineRenderer>().SetPosition(0, tf.position);
