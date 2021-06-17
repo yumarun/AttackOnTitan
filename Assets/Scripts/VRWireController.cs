@@ -9,6 +9,8 @@ public class VRWireController : MonoBehaviour
     [SerializeField] Transform cameraTf;
     [SerializeField] GameObject Line2;
 
+    [SerializeReference] public IInput myInput;
+
     public static bool IsShooting = false;
     public static Vector3 ColPos = default;
 
@@ -21,13 +23,13 @@ public class VRWireController : MonoBehaviour
     {
         Line2.GetComponent<LineRenderer>().SetPosition(0, player.transform.position - player.transform.up * 0.5f);
 
-        if (OVRInput.GetDown(OVRInput.Button.One))
+        if (myInput.LaunchWire())
         {
             IsShooting = true;
             ShootBall();
         }
 
-        if (OVRInput.GetDown(OVRInput.Button.Two))
+        if (myInput.WindUpWire())
         {
             IsShooting = false;
             Line2.GetComponent<LineRenderer>().enabled = false;

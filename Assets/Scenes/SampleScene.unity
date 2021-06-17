@@ -831,6 +831,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1792390705}
   - component: {fileID: 1792390706}
+  - component: {fileID: 1792390707}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -865,6 +866,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   VRPlayer: {fileID: 1257335344340525154}
+  moveSpeed: 30
+  moveInput:
+    id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: KeyboardInput, ns: , asm: Assembly-CSharp}
+      data:
+        mouseSensitivity: 5
+        camera: {fileID: 1257335344340302918}
+--- !u!114 &1792390707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1792390704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a1f6d6eeec984a429dcbdd882719f33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1792390706}
+  wire: {fileID: 1906769820}
 --- !u!1 &1798049044
 GameObject:
   m_ObjectHideFlags: 0
@@ -987,7 +1012,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: -179, y: -30, z: 0}
 --- !u!1 &1906769818
 GameObject:
@@ -1036,6 +1061,15 @@ MonoBehaviour:
   bulletPref: {fileID: 1745469598614605720, guid: f8ad3345309e37b40a9194dd0f6fcca1, type: 3}
   cameraTf: {fileID: 1257335344340302918}
   Line2: {fileID: 2097244892}
+  myInput:
+    id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: KeyboardInput, ns: , asm: Assembly-CSharp}
+      data:
+        mouseSensitivity: 5
+        camera: {fileID: 1257335344340302918}
 --- !u!1 &1918231046
 GameObject:
   m_ObjectHideFlags: 0
@@ -1713,7 +1747,7 @@ Transform:
   - {fileID: 1257335344340302914}
   - {fileID: 2097244893}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1257335344340345128
 Transform:

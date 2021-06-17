@@ -6,10 +6,12 @@ using UnityEngine.XR;
 public class VRPlayerMove : MonoBehaviour
 {
     [SerializeField] GameObject VRPlayer;
+    [SerializeField] int moveSpeed = 1;
+    [SerializeReference] public IInput myInput;
 
     void Start()
     {
-        
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
@@ -19,12 +21,13 @@ public class VRPlayerMove : MonoBehaviour
 
     void move()
     {
-        Vector2 stickR = OVRInput.Get(OVRInput.RawAxis2D.LThumbstick);
+        Vector2 stickR = new Vector2(myInput.MoveX(), myInput.MoveY());
         Vector3 changePosition = new Vector3((stickR.x), 0, (stickR.y)) * 0.1f;
-        Vector3 changeRotation = new Vector3(0, InputTracking.GetLocalRotation(XRNode.Head).eulerAngles.y, 0);
+        Vector3 changeRotation = new Vector3(0, myInput.LocalLoatation(VRPlayer.transform).y, 0);
         if (VRPlayer.GetComponent<Rigidbody>().velocity.y == 0.0)
         {
-            VRPlayer.transform.position += this.transform.rotation * (Quaternion.Euler(changeRotation) * changePosition);
+            VRPlayer.transform.position += this.transform.rotation * (Quaternion.Euler(changeRotation) * changePosition) 
+                * moveSpeed * Time.deltaTime;
         }
     }
 }
