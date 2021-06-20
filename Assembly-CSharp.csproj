@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{977E365D-4011-AD4D-34F0-BBD02DE42468}</ProjectGuid>
+    <ProjectGuid>{AD924A5C-084A-4E1D-B715-6572E05BDB1D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -66,6 +66,7 @@
     <Compile Include="Assets\Oculus\SampleFramework\Core\Locomotion\Scripts\TeleportInputHandler.cs" />
     <Compile Include="Assets\Oculus\LipSync\Scenes\Scripts\LipSyncDemo_Control.cs" />
     <Compile Include="Assets\Oculus\Avatar\Samples\SocialStarter\Assets\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\IPlayerInput\IPlayerInput.cs" />
     <Compile Include="Assets\Oculus\SampleFramework\Usage\Locomotion\Scripts\LocomotionSampleSupport.cs" />
     <Compile Include="Assets\Oculus\SampleFramework\Usage\StartScene\Scripts\StartMenu.cs" />
     <Compile Include="Assets\Oculus\SampleFramework\Core\Locomotion\Scripts\TeleportTransition.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Assets\Oculus\AudioManager\Scripts\Audio\MinMaxAttribute.cs" />
     <Compile Include="Assets\Oculus\SampleFramework\Core\Locomotion\Scripts\CharacterCameraConstraint.cs" />
     <Compile Include="Assets\Oculus\SampleFramework\Core\DistanceGrab\Scripts\PauseOnInputLoss.cs" />
+    <Compile Include="Assets\Scripts\IPlayerInput\KeyboardInput.cs" />
     <Compile Include="Assets\Oculus\Avatar\Scripts\OvrAvatarSkinnedMeshRenderPBSV2Component.cs" />
     <Compile Include="Assets\Oculus\LipSync\Scripts\Helpers\OVRTouchpad.cs" />
     <Compile Include="Assets\Oculus\Avatar\Scripts\OvrAvatarSDKManager.cs" />
@@ -121,6 +123,7 @@
     <Compile Include="Assets\Oculus\SampleFramework\Usage\HandsTrainExample\Scripts\HandsActiveChecker.cs" />
     <Compile Include="Assets\Oculus\SampleFramework\Core\Locomotion\Scripts\TeleportOrientationHandlerHMD.cs" />
     <Compile Include="Assets\Oculus\Avatar\Scripts\OvrAvatarPacket.cs" />
+    <Compile Include="Assets\Scripts\IPlayerInput\VRInput.cs" />
     <Compile Include="Assets\Oculus\Avatar\Scripts\OvrAvatarSkinnedMeshRenderPBSComponent.cs" />
     <Compile Include="Assets\Oculus\SampleFramework\Usage\OVROverlayCanvas\Scripts\OVROverlayCanvas.cs" />
     <Compile Include="Assets\Oculus\SampleFramework\Core\Video\Scripts\MoviePlayerSampleControls.cs" />
@@ -201,6 +204,7 @@
     <Compile Include="Assets\Oculus\Avatar\Samples\SocialStarter\Assets\Scripts\RemotePlayer.cs" />
     <Compile Include="Assets\Oculus\LipSync\Scenes\Scripts\LipSyncDemo_SetCurrentTarget.cs" />
     <Compile Include="Assets\Oculus\SampleFramework\Usage\HandsTrainExample\Scripts\TrainLocomotive.cs" />
+    <Compile Include="Assets\Scripts\IPlayerInput\InputManager.cs" />
     <Compile Include="Assets\Oculus\SampleFramework\Usage\HandsTrainExample\Scripts\SelectionCylinder.cs" />
     <Compile Include="Assets\Oculus\SampleFramework\Usage\HandsTrainExample\Scripts\WindmillBladesController.cs" />
     <Compile Include="Assets\Oculus\SampleFramework\Core\Locomotion\Scripts\TeleportTargetHandlerNavMesh.cs" />
@@ -215,10 +219,7 @@
     <Compile Include="Assets\Oculus\LipSync\Scripts\OVRLipSyncContextTextureFlip.cs" />
     <Compile Include="Assets\Oculus\SampleFramework\Usage\DebugUI\DebugUISample.cs" />
     <Compile Include="Assets\Oculus\SampleFramework\Core\HandsInteraction\Scripts\ButtonController.cs" />
-    <Compile Include="Assets\Scripts\IMoveInput\VRInput.cs" />
-    <Compile Include="Assets\Scripts\IMoveInput\KeyboardInput.cs" />
-    <Compile Include="Assets\Scripts\IMoveInput\InputManager.cs" />
-    <Compile Include="Assets\Scripts\IMoveInput\IInput.cs" />
+    <Compile Include="Assets\Scripts\IPlayerInput\IInputUser.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\Oculus\SampleFramework\Usage\HandsTrainExample\Shaders\XingLightShader.shader" />
@@ -859,23 +860,23 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Oculus.Platform.csproj">
-      <Project>{D2F9428A-0D8D-7137-9E11-9624ADB82137}</Project>
+      <Project>{5765B200-74E4-D2AF-7E18-BAFC3D0D06CE}</Project>
       <Name>Oculus.Platform</Name>
     </ProjectReference>
     <ProjectReference Include="Oculus.Platform.Editor.csproj">
-      <Project>{08F5AA5F-191C-0251-052C-492EAFDC7658}</Project>
+      <Project>{75F7AA8A-008F-F372-36D1-A687EB685354}</Project>
       <Name>Oculus.Platform.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Oculus.VR.Editor.csproj">
-      <Project>{8B77BACC-7141-F03C-13A1-2EC5B7BE9CC7}</Project>
+      <Project>{F8DFE670-94C8-4213-22EB-46D8C544C13C}</Project>
       <Name>Oculus.VR.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Oculus.VR.Scripts.Editor.csproj">
-      <Project>{FC3BAA6E-93AC-7117-11C3-3F802B670180}</Project>
+      <Project>{0DAD1378-9734-96B9-46F4-5267F5173198}</Project>
       <Name>Oculus.VR.Scripts.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Oculus.VR.csproj">
-      <Project>{803B2D96-7017-C20B-6433-4CA29FE0377B}</Project>
+      <Project>{AD9D0ED9-7E48-28F8-0014-D12406BE2511}</Project>
       <Name>Oculus.VR</Name>
     </ProjectReference>
   </ItemGroup>

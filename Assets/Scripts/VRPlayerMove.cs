@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 
-public class VRPlayerMove : MonoBehaviour
+public class VRPlayerMove : MonoBehaviour, IInputUser
 {
-    [SerializeField] GameObject VRPlayer;
+    [SerializeField] GameObject VRPlayer = null;
     [SerializeField] int moveSpeed = 1;
-    [SerializeReference] public IInput myInput;
+
+    public IPlayerInput MyInput{ get; set; }
 
     void Start()
     {
@@ -21,9 +22,9 @@ public class VRPlayerMove : MonoBehaviour
 
     void move()
     {
-        Vector2 stickR = new Vector2(myInput.MoveX(), myInput.MoveY());
+        Vector2 stickR = new Vector2(MyInput.MoveX(), MyInput.MoveY());
         Vector3 changePosition = new Vector3((stickR.x), 0, (stickR.y)) * 0.1f;
-        Vector3 changeRotation = new Vector3(0, myInput.LocalLoatation(VRPlayer.transform).y, 0);
+        Vector3 changeRotation = new Vector3(0, MyInput.LocalLoatation(VRPlayer.transform).y, 0);
         if (VRPlayer.GetComponent<Rigidbody>().velocity.y == 0.0)
         {
             VRPlayer.transform.position += this.transform.rotation * (Quaternion.Euler(changeRotation) * changePosition) 

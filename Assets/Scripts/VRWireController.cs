@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VRWireController : MonoBehaviour
+public class VRWireController : MonoBehaviour, IInputUser
 {
-    [SerializeField] GameObject player;
-    [SerializeField] GameObject bulletPref;
-    [SerializeField] Transform cameraTf;
-    [SerializeField] GameObject Line2;
+    [SerializeField] GameObject player = null;
+    [SerializeField] GameObject bulletPref = null;
+    [SerializeField] Transform cameraTf = null;
+    [SerializeField] GameObject Line2 = null;
 
-    [SerializeReference] public IInput myInput;
-
+    public IPlayerInput MyInput { get; set; }
     public static bool IsShooting = false;
     public static Vector3 ColPos = default;
 
@@ -23,13 +22,13 @@ public class VRWireController : MonoBehaviour
     {
         Line2.GetComponent<LineRenderer>().SetPosition(0, player.transform.position - player.transform.up * 0.5f);
 
-        if (myInput.LaunchWire())
+        if (MyInput.LaunchWire())
         {
             IsShooting = true;
             ShootBall();
         }
 
-        if (myInput.WindUpWire())
+        if (MyInput.WindUpWire())
         {
             IsShooting = false;
             Line2.GetComponent<LineRenderer>().enabled = false;
