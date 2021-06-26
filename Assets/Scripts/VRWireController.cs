@@ -8,10 +8,12 @@ public class VRWireController : MonoBehaviour, IInputUser
     [SerializeField] GameObject bulletPref = null;
     [SerializeField] Transform cameraTf = null;
     [SerializeField] GameObject Line2 = null;
+    [SerializeField] GameObject bullet_right;
 
     public IPlayerInput MyInput { get; set; }
-    public static bool IsShooting = false;
     public static Vector3 ColPos = default;
+
+    
 
     void Start()
     {
@@ -21,22 +23,41 @@ public class VRWireController : MonoBehaviour, IInputUser
     void Update()
     {
         Line2.GetComponent<LineRenderer>().SetPosition(0, player.transform.position - player.transform.up * 0.5f);
+        Line2.GetComponent<LineRenderer>().SetPosition(1, bullet_right.transform.position);
 
         if (MyInput.LaunchWire())
         {
-            IsShooting = true;
-            ShootBall();
+            if (Bullet.bulletCond != Bullet.BulletCond.StayingOther)
+            {
+                Bullet.bulletCond = Bullet.BulletCond.Going;
+            }
+            else
+            {
+                Bullet.bulletCond = Bullet.BulletCond.Returning;
+            }
         }
 
         if (MyInput.WindUpWire())
         {
-            IsShooting = false;
-            Line2.GetComponent<LineRenderer>().enabled = false;
+            Bullet.bulletCond = Bullet.BulletCond.Returning;
+            ColPos = player.transform.position;
         }
 
-        if (!IsShooting)
+
+        // どこに書くのがいいんだろう?
+        if (Input.GetKeyDown(KeyCode.Q) && (Bullet.bulletCond == Bullet.BulletCond.StayingOther))
         {
-            ColPos = player.transform.position;
+            VRAddPowerToPlayer.AddPower();
+        }
+
+        //Line2のonとoff
+        if (Bullet.bulletCond != Bullet.BulletCond.StayingPlayer)
+        {
+            Line2.GetComponent<LineRenderer>().enabled = true;
+        }
+        else
+        {
+            Line2.GetComponent<LineRenderer>().enabled = false;
         }
 
         if (Vector3.Distance(player.transform.position, ColPos) > Values.maxStringLength)
@@ -46,6 +67,7 @@ public class VRWireController : MonoBehaviour, IInputUser
         }
     }
 
+    /*
     void ShootBall()
     {
         Transform tf = player.transform;
@@ -60,5 +82,12 @@ public class VRWireController : MonoBehaviour, IInputUser
 
         Line2.GetComponent<LineRenderer>().enabled = true;
         Line2.GetComponent<LineRenderer>().SetPosition(0, tf.position);
+    }
+    */
+    
+    //2021/06/27追加
+    void ShootBullet(Vector3 gole)
+    {
+        bullet_right.GetComponent<Bullet>().moveTowards(gole);
     }
 }

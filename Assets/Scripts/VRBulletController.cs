@@ -7,6 +7,8 @@ public class VRBulletController : MonoBehaviour
     GameObject player;
     LineRenderer lr;
 
+    public bool goToPlayer = false;
+
     void Start()
     {
         player = GameObject.Find("VRPlayer");
@@ -29,7 +31,12 @@ public class VRBulletController : MonoBehaviour
             Destroy(gameObject);
         }
 
-        
+        //2021/06/26追加
+        //プレイヤーの方に向かっているとき＆プレイヤーとの距離が5m以下になったときに破壊
+        if (goToPlayer && Vector3.Distance(player.transform.position, transform.position) < 5f)
+        {
+            Destroy(gameObject);
+        }
     }
 
     void OnCollisionEnter(Collision collision)
