@@ -5,6 +5,8 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
 
+    [SerializeField] bool right = true;
+
     public enum BulletCond
     {
         Going,
@@ -33,8 +35,20 @@ public class Bullet : MonoBehaviour
         }
         else if (bulletCond == BulletCond.Going)
         {
-            moveTowards(Camera.main.transform.position + Camera.main.transform.forward * 100);
+            Vector3 gole = new Vector3();
+
+            if (right)
+            {
+                gole = (Camera.main.transform.forward * 2 + Camera.main.transform.right).normalized * 100;
+            }
+            else
+            {
+                gole = (Camera.main.transform.forward * 2 + (-1) * Camera.main.transform.right).normalized * 100;
+            }
+            moveTowards(gole);
         }
+
+        Debug.Log(Camera.main.transform.position);
 
         //Returning処理
         if (bulletCond == BulletCond.Returning && Vector3.Distance(transform.position, player.transform.position) < 1f)
@@ -47,6 +61,7 @@ public class Bullet : MonoBehaviour
             moveTowards(player.transform.position);
         }
 
+        //StayingPlayer処理
         if (bulletCond == BulletCond.StayingPlayer)
         {
             InititializePosition(player.transform.position);

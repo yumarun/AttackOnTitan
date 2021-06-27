@@ -489,6 +489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac316869deb221d46838d7b093e63a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  right: 1
   player: {fileID: 1257335344340525154}
   wireController: {fileID: 1906769820}
 --- !u!135 &730182538
@@ -1214,6 +1215,7 @@ MonoBehaviour:
   cameraTf: {fileID: 1257335344340302918}
   Line2: {fileID: 2097244892}
   bullet_right: {fileID: 730182535}
+  autoWindUp: 0
 --- !u!1 &1918231046
 GameObject:
   m_ObjectHideFlags: 0

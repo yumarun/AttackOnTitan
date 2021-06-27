@@ -13,7 +13,7 @@ public class VRWireController : MonoBehaviour, IInputUser
     public IPlayerInput MyInput { get; set; }
     public static Vector3 ColPos = default;
 
-    
+    [SerializeField] bool autoWindUp = false;
 
     void Start()
     {
@@ -43,6 +43,12 @@ public class VRWireController : MonoBehaviour, IInputUser
             ColPos = player.transform.position;
         }
 
+        //autoWindUpがtrueの時は自動で巻き取るように
+        if (autoWindUp && (Bullet.bulletCond == Bullet.BulletCond.StayingOther))
+        {
+            VRAddPowerToPlayer.AddPower();
+            Bullet.bulletCond = Bullet.BulletCond.Returning;
+        } 
 
         // どこに書くのがいいんだろう?
         if (Input.GetKeyDown(KeyCode.Q) && (Bullet.bulletCond == Bullet.BulletCond.StayingOther))
@@ -66,24 +72,7 @@ public class VRWireController : MonoBehaviour, IInputUser
             ColPos = player.transform.position;
         }
     }
-
-    /*
-    void ShootBall()
-    {
-        Transform tf = player.transform;
-
-        Line2.GetComponent<LineRenderer>().enabled = true;
-
-        GameObject bullet = Instantiate(bulletPref) as GameObject;
-        bullet.transform.position = tf.position + tf.forward * 2 + tf.up;
-        Vector3 start = player.transform.position;
-        Vector3 gole = Camera.main.transform.position + Camera.main.transform.forward * 10;
-        bullet.GetComponent<Rigidbody>().AddForce((gole - start) * Values.powerToBall);
-
-        Line2.GetComponent<LineRenderer>().enabled = true;
-        Line2.GetComponent<LineRenderer>().SetPosition(0, tf.position);
-    }
-    */
+    
     
     //2021/06/27追加
     void ShootBullet(Vector3 gole)
