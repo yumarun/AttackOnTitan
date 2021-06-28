@@ -16,7 +16,11 @@ public class Bullet : MonoBehaviour
     }
 
 
-    public static BulletCond bulletCond = BulletCond.StayingPlayer;
+    public BulletCond bulletCond = BulletCond.StayingPlayer;
+
+
+    Vector3 gole = new Vector3();
+
 
     [SerializeField] GameObject player;
     [SerializeField] VRWireController wireController;
@@ -35,20 +39,10 @@ public class Bullet : MonoBehaviour
         }
         else if (bulletCond == BulletCond.Going)
         {
-            Vector3 gole = new Vector3();
 
-            if (right)
-            {
-                gole = (Camera.main.transform.forward * 2 + Camera.main.transform.right).normalized * 100;
-            }
-            else
-            {
-                gole = (Camera.main.transform.forward * 2 + (-1) * Camera.main.transform.right).normalized * 100;
-            }
             moveTowards(gole);
         }
 
-        Debug.Log(Camera.main.transform.position);
 
         //Returning処理
         if (bulletCond == BulletCond.Returning && Vector3.Distance(transform.position, player.transform.position) < 1f)
@@ -89,9 +83,14 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag != "Player")
+        if (other.tag != "Player" && other.tag != "Bullet")
         {
             bulletCond = BulletCond.StayingOther;
         }
+    }
+
+    public void SetGole(Vector3 pos)
+    {
+        gole = pos;
     }
 }

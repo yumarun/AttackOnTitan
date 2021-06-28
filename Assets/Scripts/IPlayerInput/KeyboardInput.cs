@@ -53,4 +53,14 @@ public class KeyboardInput : IPlayerInput
     {
         return Input.GetMouseButtonDown(1);
     }
+
+    public bool LaunchWireLeft()
+    {
+        return Input.GetKeyDown(KeyCode.Alpha1);
+    }
+
+    public bool WindUpWireLeft()
+    {
+        return Input.GetKeyDown(KeyCode.Alpha2);
+    }
 }

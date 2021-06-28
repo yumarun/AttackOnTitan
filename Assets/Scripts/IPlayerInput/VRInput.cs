@@ -27,4 +27,14 @@ public class VRInput : IPlayerInput
     {
         return OVRInput.GetDown(OVRInput.Button.Two);
     }
+
+    public bool LaunchWireLeft()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public bool WindUpWireLeft()
+    {
+        throw new System.NotImplementedException();
+    }
 }

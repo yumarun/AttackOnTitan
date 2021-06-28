@@ -9,4 +9,6 @@ public interface IPlayerInput
     Quaternion LocalLoatation(Transform transform);
     bool LaunchWire();
     bool WindUpWire();
+    bool LaunchWireLeft();
+    bool WindUpWireLeft();
 }
