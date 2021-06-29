@@ -18,23 +18,23 @@ public class VRInput : IPlayerInput
         return InputTracking.GetLocalRotation(XRNode.Head);
     }
 
-    public bool LaunchWire()
+    public bool LaunchWireRight()
     {
-        return OVRInput.GetDown(OVRInput.Button.One);
+        return OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger);
     }
 
-    public bool WindUpWire()
+    public bool WindUpWireRight()
     {
-        return OVRInput.GetDown(OVRInput.Button.Two);
+        return OVRInput.GetDown(OVRInput.RawButton.RHandTrigger);
     }
 
     public bool LaunchWireLeft()
     {
-        throw new System.NotImplementedException();
+        return OVRInput.GetDown(OVRInput.RawButton.LIndexTrigger);
     }
 
     public bool WindUpWireLeft()
     {
-        throw new System.NotImplementedException();
+        return OVRInput.GetDown(OVRInput.RawButton.LHandTrigger);
     }
 }

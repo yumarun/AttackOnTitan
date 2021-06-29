@@ -30,7 +30,7 @@ public class VRWireController : MonoBehaviour, IInputUser
         Line2_left.GetComponent<LineRenderer>().SetPosition(0, player.transform.position - player.transform.up * 0.5f);
         Line2_left.GetComponent<LineRenderer>().SetPosition(1, bullet_left.gameObject.transform.position);
 
-        if (MyInput.LaunchWire())
+        if (MyInput.LaunchWireRight())
         {
             if (bullet_right.bulletCond != Bullet.BulletCond.StayingOther)
             {
@@ -56,7 +56,7 @@ public class VRWireController : MonoBehaviour, IInputUser
             }
         }
 
-        if (MyInput.WindUpWire())
+        if (MyInput.WindUpWireRight())
         {
             bullet_right.bulletCond = Bullet.BulletCond.Returning;
             ColPos = player.transform.position;

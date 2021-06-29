@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.XR;
 using System.Collections.Generic;
 
 public class InputManager : MonoBehaviour
@@ -11,22 +12,36 @@ public class InputManager : MonoBehaviour
 
     private void Awake()
     {
-        foreach (var user in users)
+        if (IsConnectingDevice())
         {
-            var inputUsable = user.GetComponent<IInputUser>();
-
-            if (inputUsable.MyInput != null)
-            {
-                break;
-            }
-            inputUsable.MyInput = keyInput;
+            ChangeToVRInput();
         }
+        else
+        {
+            ChangeToKeyInput();
+        }
+    }
+
+    private bool IsConnectingDevice()
+    {
+        var xrDisplaySubsystems = new List<XRDisplaySubsystem>();
+        SubsystemManager.GetInstances(xrDisplaySubsystems);
+        foreach (var xrDisplay in xrDisplaySubsystems)
+        {
+            Debug.Log(xrDisplay);
+            if (xrDisplay.running)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     [ContextMenu("UseKeyInput")]
     void ChangeToKeyInput()
     {
         Debug.Log("use keyInput");
+        Cursor.lockState = CursorLockMode.Locked;
         foreach (var user in users)
         {
             var inputUsable = user.GetComponent<IInputUser>();

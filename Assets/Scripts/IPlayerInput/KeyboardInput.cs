@@ -44,12 +44,12 @@ public class KeyboardInput : IPlayerInput
         return tfm.rotation;
     }
 
-    public bool LaunchWire()
+    public bool LaunchWireRight()
     {
         return Input.GetMouseButtonDown(0);
     }
 
-    public bool WindUpWire()
+    public bool WindUpWireRight()
     {
         return Input.GetMouseButtonDown(1);
     }

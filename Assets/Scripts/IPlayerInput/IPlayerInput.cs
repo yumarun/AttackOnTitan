@@ -7,8 +7,8 @@ public interface IPlayerInput
     float MoveX();
     float MoveY();
     Quaternion LocalLoatation(Transform transform);
-    bool LaunchWire();
-    bool WindUpWire();
+    bool LaunchWireRight();
+    bool WindUpWireRight();
     bool LaunchWireLeft();
     bool WindUpWireLeft();
 }

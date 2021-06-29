@@ -12,7 +12,6 @@ public class VRPlayerMove : MonoBehaviour, IInputUser
 
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
