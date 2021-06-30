@@ -22,7 +22,7 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    private bool IsConnectingDevice()
+    public static bool IsConnectingDevice()
     {
         var xrDisplaySubsystems = new List<XRDisplaySubsystem>();
         SubsystemManager.GetInstances(xrDisplaySubsystems);

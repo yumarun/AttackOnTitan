@@ -37,4 +37,9 @@ public class VRInput : IPlayerInput
     {
         return OVRInput.GetDown(OVRInput.RawButton.LHandTrigger);
     }
+
+    public bool GrabOrRelease(OVRInput.Controller controller)
+    {
+        return OVRInput.GetDown(OVRInput.Button.One, controller);
+    }
 }

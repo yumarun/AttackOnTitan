@@ -63,4 +63,16 @@ public class KeyboardInput : IPlayerInput
     {
         return Input.GetKeyDown(KeyCode.Alpha2);
     }
+
+    public bool GrabOrRelease(OVRInput.Controller controller)
+    {
+        if (controller == OVRInput.Controller.RTouch)
+        {
+            return Input.GetKeyDown(KeyCode.C);
+        }
+        else
+        {
+            return Input.GetKeyDown(KeyCode.Z);
+        }
+    }
 }

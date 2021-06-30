@@ -11,4 +11,5 @@ public interface IPlayerInput
     bool WindUpWireRight();
     bool LaunchWireLeft();
     bool WindUpWireLeft();
+    bool GrabOrRelease(OVRInput.Controller controller);
 }
