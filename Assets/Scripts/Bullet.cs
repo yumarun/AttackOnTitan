@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-
-    [SerializeField] bool right = true;
-
     public enum BulletCond
     {
         Going,
@@ -15,82 +12,106 @@ public class Bullet : MonoBehaviour
         StayingOther
     }
 
+    [SerializeField] GameObject player = null;
+
+    Vector3 goal = new Vector3();
+    Vector3 positionOffset;
 
     public BulletCond bulletCond = BulletCond.StayingPlayer;
-
-
-    Vector3 gole = new Vector3();
-
-
-    [SerializeField] GameObject player;
-    [SerializeField] VRWireController wireController;
     
     void Start()
     {
-        InititializePosition(player.transform.position);
+        positionOffset = transform.position - player.transform.position;
+        InititializePosition();
     }
 
     void Update()
     {
+        switch (bulletCond)
+        {
+            case BulletCond.Going:
+                Go();
+                break;
+            case BulletCond.Returning:
+                Return();
+                break;
+            case BulletCond.StayingPlayer:
+                StayPlayer();
+                break;
+            case BulletCond.StayingOther:
+                StayOther();
+                break;
+            default:
+                Debug.Log("不正な値");
+                break;
+        }
+    }
+
+    public void InititializePosition()
+    {
+        transform.position = player.transform.position + positionOffset;
+    }
+
+    public void moveTowards(Vector3 goal)
+    {
+        transform.position = Vector3.MoveTowards(transform.position, goal, 100 * Time.deltaTime);
+    }
+
+    public void SetGoal(OVRInput.Controller controller)
+    {
+        Vector3 offset = Camera.main.transform.right;
+        if (controller == OVRInput.Controller.LTouch)
+        {
+            offset *= -1;
+        }
+
+        goal = (Camera.main.transform.forward * 2 + offset).normalized * 100;
+    }
+
+    private void Go()
+    {
         //Going処理
-        if (bulletCond == BulletCond.Going && Vector3.Distance(transform.position, player.transform.position) > Values.maxStringLength)
+        if (Vector3.Distance(transform.position, player.transform.position) > Values.maxStringLength)
         {
             bulletCond = BulletCond.Returning;
         }
-        else if (bulletCond == BulletCond.Going)
+        else
         {
-
-            moveTowards(gole);
+            moveTowards(goal);
         }
+    }
 
-
+    private void Return()
+    {
         //Returning処理
-        if (bulletCond == BulletCond.Returning && Vector3.Distance(transform.position, player.transform.position) < 1f)
+        if (Vector3.Distance(transform.position, player.transform.position) < 1f)
         {
-            InititializePosition(player.transform.position);
+            InititializePosition();
             bulletCond = BulletCond.StayingPlayer;
         }
-        else if (bulletCond == BulletCond.Returning)
+        else
         {
             moveTowards(player.transform.position);
         }
+    }
 
+    private void StayPlayer()
+    {
         //StayingPlayer処理
-        if (bulletCond == BulletCond.StayingPlayer)
-        {
-            InititializePosition(player.transform.position);
-        }
+        InititializePosition();
+    }
 
+    private void StayOther()
+    {
         //StayingOther処理
-        if (bulletCond == BulletCond.StayingOther)
-        {
-            GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
-        }
-        
-        
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
     }
 
-    public void InititializePosition(Vector3 pos)
+    private void OnTriggerEnter(Collider other)
     {
-        transform.position = pos;
-    }
-
-
-    public void moveTowards(Vector3 gole)
-    {
-        transform.position = Vector3.MoveTowards(transform.position, gole, 100 * Time.deltaTime);
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.tag != "Player" && other.tag != "Bullet")
+        if (other.tag == "Stage")
         {
             bulletCond = BulletCond.StayingOther;
         }
-    }
-
-    public void SetGole(Vector3 pos)
-    {
-        gole = pos;
     }
 }

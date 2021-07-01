@@ -4,116 +4,60 @@ using UnityEngine;
 
 public class VRWireController : MonoBehaviour, IInputUser
 {
-    [SerializeField] GameObject player = null;
-    [SerializeField] GameObject bulletPref = null;
-    [SerializeField] Transform cameraTf = null;
-    [SerializeField] GameObject Line2 = null;
-    [SerializeField] GameObject Line2_left = null;
-    [SerializeField] Bullet bullet_right;
-    [SerializeField] Bullet bullet_left;
+    [SerializeField] Rigidbody player = null;
+    [SerializeField] bool autoWindUp = false;
+
+    [SerializeField] Bullet bullet = null;
+    [SerializeField] LineRenderer wire = null;
+    [SerializeField] OVRInput.Controller controller = OVRInput.Controller.RTouch;
+
+    private Vector3 bulletInitialLocalPos;
 
     public IPlayerInput MyInput { get; set; }
     public static Vector3 ColPos = default;
 
-    [SerializeField] bool autoWindUp = false;
-
-    void Start()
+    private void Awake()
     {
-
+        bulletInitialLocalPos = transform.position - player.transform.position;
     }
 
     void Update()
     {
-        Line2.GetComponent<LineRenderer>().SetPosition(0, player.transform.position - player.transform.up * 0.5f);
-        Line2.GetComponent<LineRenderer>().SetPosition(1, bullet_right.gameObject.transform.position);
+        wire.SetPosition(0, player.transform.position + bulletInitialLocalPos);
+        wire.SetPosition(1, bullet.gameObject.transform.position);
 
-        Line2_left.GetComponent<LineRenderer>().SetPosition(0, player.transform.position - player.transform.up * 0.5f);
-        Line2_left.GetComponent<LineRenderer>().SetPosition(1, bullet_left.gameObject.transform.position);
-
-        if (MyInput.LaunchWireRight())
+        if (MyInput.LaunchWire(controller))
         {
-            if (bullet_right.bulletCond != Bullet.BulletCond.StayingOther)
+            if (bullet.bulletCond != Bullet.BulletCond.StayingOther)
             {
-                bullet_right.SetGole((Camera.main.transform.forward * 2 + Camera.main.transform.right).normalized * 100);
-                bullet_right.bulletCond = Bullet.BulletCond.Going;
+                bullet.SetGoal(controller);
+                bullet.bulletCond = Bullet.BulletCond.Going;
             }
             else
             {
-                bullet_right.bulletCond = Bullet.BulletCond.Returning;
+                bullet.bulletCond = Bullet.BulletCond.Returning;
             }
         }
 
-        if (MyInput.LaunchWireLeft())
+        if (MyInput.WindUpWire(controller))
         {
-            if (bullet_left.bulletCond != Bullet.BulletCond.StayingOther)
-            {
-                bullet_left.SetGole((Camera.main.transform.forward * 2 + (-1) * Camera.main.transform.right).normalized * 100);
-                bullet_left.bulletCond = Bullet.BulletCond.Going;
-            }
-            else
-            {
-                bullet_left.bulletCond = Bullet.BulletCond.Returning;
-            }
-        }
-
-        if (MyInput.WindUpWireRight())
-        {
-            bullet_right.bulletCond = Bullet.BulletCond.Returning;
+            bullet.bulletCond = Bullet.BulletCond.Returning;
             ColPos = player.transform.position;
-        }
-
-        if (MyInput.WindUpWireLeft())
-        {
-            bullet_left.bulletCond = Bullet.BulletCond.Returning;
-            ColPos = player.transform.position;
-        }
-
-
-        //autoWindUpがtrueの時は自動で巻き取るように
-        if (autoWindUp && (bullet_right.bulletCond == Bullet.BulletCond.StayingOther))
-        {
-            VRAddPowerToPlayer.AddPower();
-            bullet_right.bulletCond = Bullet.BulletCond.Returning;
-        }
-        if (autoWindUp && (bullet_left.bulletCond == Bullet.BulletCond.StayingOther))
-        {
-            VRAddPowerToPlayer.AddPower();
-            bullet_left.bulletCond = Bullet.BulletCond.Returning;
         }
 
         // どこに書くのがいいんだろう?
-        if (Input.GetKeyDown(KeyCode.Q) && (bullet_right.bulletCond == Bullet.BulletCond.StayingOther))
+        // ワイヤー巻取り
+        if (Input.GetKeyDown(KeyCode.Q) && (bullet.bulletCond == Bullet.BulletCond.StayingOther) 
+            || (autoWindUp && (bullet.bulletCond == Bullet.BulletCond.StayingOther)))
         {
             VRAddPowerToPlayer.AddPower();
-        }
-        if (Input.GetKeyDown(KeyCode.Q) && (bullet_left.bulletCond == Bullet.BulletCond.StayingOther))
-        {
-            VRAddPowerToPlayer.AddPower();
-        }
-
-        //Line2のonとoff
-        if (bullet_right.bulletCond != Bullet.BulletCond.StayingPlayer)
-        {
-            Line2.GetComponent<LineRenderer>().enabled = true;
-        }
-        else
-        {
-            Line2.GetComponent<LineRenderer>().enabled = false;
-        }
-        if (bullet_left.bulletCond != Bullet.BulletCond.StayingPlayer)
-        {
-            Line2_left.GetComponent<LineRenderer>().enabled = true;
-        }
-        else
-        {
-            Line2_left.GetComponent<LineRenderer>().enabled = false;
+            bullet.bulletCond = Bullet.BulletCond.Returning;
         }
 
         if (Vector3.Distance(player.transform.position, ColPos) > Values.maxStringLength)
         {
-            player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            player.velocity = Vector3.zero;
             ColPos = player.transform.position;
         }
     }
-    
 }

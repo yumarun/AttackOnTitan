@@ -44,24 +44,28 @@ public class KeyboardInput : IPlayerInput
         return tfm.rotation;
     }
 
-    public bool LaunchWireRight()
+    public bool LaunchWire(OVRInput.Controller controller)
     {
-        return Input.GetMouseButtonDown(0);
+        if (controller == OVRInput.Controller.RTouch)
+        {
+            return Input.GetMouseButtonDown(0);
+        }
+        else
+        {
+            return Input.GetKeyDown(KeyCode.LeftShift);
+        }
     }
 
-    public bool WindUpWireRight()
+    public bool WindUpWire(OVRInput.Controller controller)
     {
-        return Input.GetMouseButtonDown(1);
-    }
-
-    public bool LaunchWireLeft()
-    {
-        return Input.GetKeyDown(KeyCode.Alpha1);
-    }
-
-    public bool WindUpWireLeft()
-    {
-        return Input.GetKeyDown(KeyCode.Alpha2);
+        if (controller == OVRInput.Controller.RTouch)
+        {
+            return Input.GetMouseButtonDown(1);
+        }
+        else
+        {
+            return Input.GetKeyDown(KeyCode.V);
+        }
     }
 
     public bool GrabOrRelease(OVRInput.Controller controller)
