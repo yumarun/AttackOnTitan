@@ -6,7 +6,7 @@ public interface IPlayerInput
 {
     float MoveX();
     float MoveY();
-    Quaternion LocalLoatation(Transform transform);
+    Quaternion LocalRotation(Transform transform);
     bool LaunchWire(OVRInput.Controller controller);
     bool WindUpWire(OVRInput.Controller controller);
     bool GrabOrRelease(OVRInput.Controller controller);

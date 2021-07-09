@@ -18,10 +18,10 @@ public class VRWireController : MonoBehaviour, IInputUser
 
     private void Awake()
     {
-        bulletInitialLocalPos = transform.position - player.transform.position;
+        bulletInitialLocalPos = bullet.transform.position - player.transform.position;
     }
 
-    void Update()
+    private void Update()
     {
         wire.SetPosition(0, player.transform.position + bulletInitialLocalPos);
         wire.SetPosition(1, bullet.gameObject.transform.position);
@@ -31,6 +31,7 @@ public class VRWireController : MonoBehaviour, IInputUser
             if (bullet.bulletCond != Bullet.BulletCond.StayingOther)
             {
                 bullet.SetGoal(controller);
+                // Debug.DrawLine(bullet.transform.position, bullet.transform.position + (Camera.main.transform.forward * 2 + Camera.main.transform.right).normalized * 100, Color.red, 10f);
                 bullet.bulletCond = Bullet.BulletCond.Going;
             }
             else

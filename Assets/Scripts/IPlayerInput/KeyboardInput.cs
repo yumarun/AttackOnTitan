@@ -38,7 +38,7 @@ public class KeyboardInput : IPlayerInput
         return Input.GetAxis("Vertical");
     }
 
-    public Quaternion LocalLoatation(Transform tfm)
+    public Quaternion LocalRotation(Transform tfm)
     {
         ChangeAngle(tfm);
         return tfm.rotation;

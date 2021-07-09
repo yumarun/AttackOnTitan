@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class InputManager : MonoBehaviour
 {
-    [SerializeField] List<GameObject> users;
+    [SerializeField] private List<GameObject> users;
 
     [Header("Inputs")]
     [SerializeField] KeyboardInput keyInput = new KeyboardInput();

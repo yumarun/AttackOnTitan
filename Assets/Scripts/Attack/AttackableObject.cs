@@ -4,17 +4,15 @@ using UnityEngine;
 
 public class AttackableObject : MonoBehaviour, IAttackable
 {
-    int Hp = 10;
-
+    private int hp = 10;
 
     [SerializeField] ScoreController sc;
     
     public void Attacked(int damage)
     {
-        Hp -= damage;
-        if (Hp <= 0)
+        hp -= damage;
+        if (hp <= 0)
         {
-
             sc.Score = sc.Score + 1;
             Destroy(gameObject);
         }

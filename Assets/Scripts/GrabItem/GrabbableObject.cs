@@ -4,27 +4,41 @@ using UnityEngine;
 
 public class GrabbableObject : MonoBehaviour, IGrabbable
 {
-    [SerializeField] Vector3 positionOffset = new Vector3();
-    [SerializeField] Vector3 rotationOffset = new Vector3();
+    [SerializeField] private Vector3 positionOffset = new Vector3();
+    [SerializeField] private Vector3 rotationOffset = new Vector3();
 
     private LayerMask grabbableLayer;
+    private Transform myTfm = null;
 
     private void Awake()
     {
         grabbableLayer = gameObject.layer;
+        myTfm = transform;
     }
 
-    public void Grab(Transform handTfm)
+    public void Grab(Transform handTfm, OVRInput.Controller controller)
     {
-        transform.parent = handTfm;
-        transform.position = handTfm.position + positionOffset;
-        transform.rotation = handTfm.rotation;
-        transform.Rotate(rotationOffset);
+        myTfm.parent = handTfm;
 
+        if (controller == OVRInput.Controller.RTouch)
+        {
+            myTfm.localPosition = positionOffset;
+            myTfm.rotation = handTfm.rotation;
+            myTfm.Rotate(rotationOffset);
+        }
+        else if (controller == OVRInput.Controller.LTouch)
+        {
+            myTfm.localPosition = new Vector3(-positionOffset.x, -positionOffset.y, positionOffset.z);
+            myTfm.rotation = handTfm.rotation;
+            myTfm.Rotate(-rotationOffset);
+        }
+        else
+        {
+            Debug.Log("Grab : InvalidControllerType");
+        }
+        
         // ignoreRayCast
         gameObject.layer = 2;
-
-        Debug.Log($"grab : {gameObject.name}");
     }
 
     public void Release()
@@ -32,7 +46,5 @@ public class GrabbableObject : MonoBehaviour, IGrabbable
         transform.parent = null;
 
         gameObject.layer = grabbableLayer;
-
-        Debug.Log($"release : {gameObject.name}");
     }
 }

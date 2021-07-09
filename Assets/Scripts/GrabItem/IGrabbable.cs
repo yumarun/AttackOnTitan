@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 public interface IGrabbable
 {
-    void Grab(Transform handTfm);
+    void Grab(Transform handTfm, OVRInput.Controller controller);
     void Release();
 }

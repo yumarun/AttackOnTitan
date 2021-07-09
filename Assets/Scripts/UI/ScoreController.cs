@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class ScoreController : MonoBehaviour
 {
-    int score = 0;
+    private int score = 0;
     public int Score
     {
         get
@@ -15,14 +16,11 @@ public class ScoreController : MonoBehaviour
         set
         {
             score = value;
-            ScoreText.text = $"Score:{score}";
-
-
+            scoreText.text = $"Score:{score}";
         }
     }
-
-
-    [SerializeField] Text ScoreText;
+    
+    [SerializeField] private Text scoreText = null;
 
     void Start()
     {

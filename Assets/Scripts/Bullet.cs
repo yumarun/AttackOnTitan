@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Bullet : MonoBehaviour
 {
@@ -12,20 +13,23 @@ public class Bullet : MonoBehaviour
         StayingOther
     }
 
-    [SerializeField] GameObject player = null;
+    [SerializeField] private GameObject player = null;
+    [SerializeField] private Transform mainCameraTransform;
 
-    Vector3 goal = new Vector3();
-    Vector3 positionOffset;
+    private Vector3 goal = new Vector3();
+    private Vector3 positionOffset;
 
     public BulletCond bulletCond = BulletCond.StayingPlayer;
-    
-    void Start()
+    private Rigidbody rb;
+
+    private void Start()
     {
+        rb = GetComponent<Rigidbody>();
         positionOffset = transform.position - player.transform.position;
-        InititializePosition();
+        InitializePosition();
     }
 
-    void Update()
+    private void Update()
     {
         switch (bulletCond)
         {
@@ -47,25 +51,25 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    public void InititializePosition()
+    private void InitializePosition()
     {
         transform.position = player.transform.position + positionOffset;
     }
 
-    public void moveTowards(Vector3 goal)
+    private void MoveTowards(Vector3 goal)
     {
         transform.position = Vector3.MoveTowards(transform.position, goal, 100 * Time.deltaTime);
     }
 
     public void SetGoal(OVRInput.Controller controller)
     {
-        Vector3 offset = Camera.main.transform.right;
+        var offset = mainCameraTransform.right;
         if (controller == OVRInput.Controller.LTouch)
         {
             offset *= -1;
         }
 
-        goal = (Camera.main.transform.forward * 2 + offset).normalized * 100;
+        goal = transform.position + (mainCameraTransform.forward * 2 + offset).normalized * 100;
     }
 
     private void Go()
@@ -77,7 +81,7 @@ public class Bullet : MonoBehaviour
         }
         else
         {
-            moveTowards(goal);
+            MoveTowards(goal);
         }
     }
 
@@ -86,30 +90,30 @@ public class Bullet : MonoBehaviour
         //Returning処理
         if (Vector3.Distance(transform.position, player.transform.position) < 1f)
         {
-            InititializePosition();
+            InitializePosition();
             bulletCond = BulletCond.StayingPlayer;
         }
         else
         {
-            moveTowards(player.transform.position);
+            MoveTowards(player.transform.position);
         }
     }
 
     private void StayPlayer()
     {
         //StayingPlayer処理
-        InititializePosition();
+        InitializePosition();
     }
 
     private void StayOther()
     {
         //StayingOther処理
-        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+        rb.constraints = RigidbodyConstraints.FreezePosition;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Stage")
+        if (other.CompareTag("Stage"))
         {
             bulletCond = BulletCond.StayingOther;
         }

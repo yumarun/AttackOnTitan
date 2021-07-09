@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class ItemGrabber : MonoBehaviour, IInputUser
 {
-    [SerializeField] Transform rayOrigin = null;
-    [SerializeField] Transform handTfm = null;
-    [SerializeField] int rayMaxLength = 2;
+    [SerializeField] private Transform rayOrigin = null;
+    [SerializeField] private Transform handTfm = null;
+    [SerializeField] private int rayMaxLength = 2;
     [SerializeField] LayerMask grabbableLayer = new LayerMask();
-    [SerializeField] OVRInput.Controller controller = OVRInput.Controller.RTouch;
+    [SerializeField] private OVRInput.Controller controller = OVRInput.Controller.RTouch;
 
     private IGrabbable grabbingItem = null;
 
@@ -43,10 +43,9 @@ public class ItemGrabber : MonoBehaviour, IInputUser
 
     private void Grab()
     {
-        Ray ray = new Ray(rayOrigin.position, rayOrigin.forward);
+        var ray = new Ray(rayOrigin.position, rayOrigin.forward);
 
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, rayMaxLength, grabbableLayer))
+        if (Physics.Raycast(ray, out var hit, rayMaxLength, grabbableLayer))
         {
             var hitObject = hit.collider.gameObject;
 
@@ -62,7 +61,7 @@ public class ItemGrabber : MonoBehaviour, IInputUser
                 return;
             }
 
-            hitGrabbable.Grab(handTfm);
+            hitGrabbable.Grab(handTfm, controller);
             grabbingItem = hitGrabbable;
         }
     }

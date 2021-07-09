@@ -13,7 +13,7 @@ public class VRInput : IPlayerInput
         return OVRInput.Get(OVRInput.RawAxis2D.LThumbstick).y;
     }
 
-    public Quaternion LocalLoatation(Transform transform)
+    public Quaternion LocalRotation(Transform transform)
     {
         return InputTracking.GetLocalRotation(XRNode.Head);
     }

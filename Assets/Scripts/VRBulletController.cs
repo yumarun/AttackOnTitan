@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// 使ってない
 public class VRBulletController : MonoBehaviour
 {
     GameObject player;
