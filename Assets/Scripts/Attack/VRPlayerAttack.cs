@@ -1,30 +1,24 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class VRPlayerAttack : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnCollisionEnter(Collision collision)
     {
-        
-    }
+        var attackTarget = collision.collider.gameObject.GetComponent<IAttackable>();
 
-    void OnCollisionEnter(Collision collision)
-    {
-        var attacktarget = collision.collider.gameObject.GetComponent<IAttackable>();
+        Debug.Log("あったった " + attackTarget);
 
-        Debug.Log("あったった " + attacktarget);
-
-        if (attacktarget != null)
+        if (attackTarget != null)
         {
-            attacktarget.Attacked(10);
+            attackTarget.Attacked(10);
         }    
     }
 }

@@ -6,7 +6,7 @@ public class AttackableObject : MonoBehaviour, IAttackable
 {
     private int hp = 10;
 
-    [SerializeField] ScoreController sc;
+    [SerializeField] private ScoreController sc = null;
     
     public void Attacked(int damage)
     {

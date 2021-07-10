@@ -10,4 +10,10 @@ public interface IPlayerInput
     bool LaunchWire(OVRInput.Controller controller);
     bool WindUpWire(OVRInput.Controller controller);
     bool GrabOrRelease(OVRInput.Controller controller);
+    /// <summary>
+    /// 一時的な入力。いつか直したい
+    /// </summary>
+    /// <param name="controller"></param>
+    /// <returns></returns>
+    bool MoveToBullet(OVRInput.Controller controller);
 }

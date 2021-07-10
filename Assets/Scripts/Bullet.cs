@@ -14,7 +14,7 @@ public class Bullet : MonoBehaviour
     }
 
     [SerializeField] private GameObject player = null;
-    [SerializeField] private Transform mainCameraTransform;
+    [SerializeField] private Transform mainCameraTransform = null;
 
     private Vector3 goal = new Vector3();
     private Vector3 positionOffset;

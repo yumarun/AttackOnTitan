@@ -48,7 +48,7 @@ public class VRWireController : MonoBehaviour, IInputUser
 
         // どこに書くのがいいんだろう?
         // ワイヤー巻取り
-        if (Input.GetKeyDown(KeyCode.Q) && (bullet.bulletCond == Bullet.BulletCond.StayingOther) 
+        if (MyInput.MoveToBullet(controller) && (bullet.bulletCond == Bullet.BulletCond.StayingOther) 
             || (autoWindUp && (bullet.bulletCond == Bullet.BulletCond.StayingOther)))
         {
             VRAddPowerToPlayer.AddPower();

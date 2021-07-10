@@ -6,7 +6,7 @@ public class ItemGrabber : MonoBehaviour, IInputUser
 {
     [SerializeField] private Transform rayOrigin = null;
     [SerializeField] private Transform handTfm = null;
-    [SerializeField] private int rayMaxLength = 2;
+    [SerializeField] private float rayMaxLength = 1.5f;
     [SerializeField] LayerMask grabbableLayer = new LayerMask();
     [SerializeField] private OVRInput.Controller controller = OVRInput.Controller.RTouch;
 
@@ -45,7 +45,9 @@ public class ItemGrabber : MonoBehaviour, IInputUser
     {
         var ray = new Ray(rayOrigin.position, rayOrigin.forward);
 
-        if (Physics.Raycast(ray, out var hit, rayMaxLength, grabbableLayer))
+        //Debug.DrawRay (rayOrigin.position, rayOrigin.forward * rayMaxLength, Color.blue, 10);
+
+        if (Physics.SphereCast(ray, 0.3f,out var hit, rayMaxLength, grabbableLayer))
         {
             var hitObject = hit.collider.gameObject;
 

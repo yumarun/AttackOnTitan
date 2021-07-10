@@ -32,4 +32,9 @@ public class VRInput : IPlayerInput
     {
         return OVRInput.GetDown(OVRInput.Button.One, controller);
     }
+
+    public bool MoveToBullet(OVRInput.Controller controller)
+    {
+        return OVRInput.GetDown(OVRInput.Button.Two, controller);
+    }
 }

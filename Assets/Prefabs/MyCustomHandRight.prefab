@@ -2028,7 +2028,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rayOrigin: {fileID: 8571812554858977138}
   handTfm: {fileID: 8571812554858977138}
-  rayMaxLength: 2
+  rayMaxLength: 1.5
   grabbableLayer:
     serializedVersion: 2
     m_Bits: 256

@@ -79,4 +79,9 @@ public class KeyboardInput : IPlayerInput
             return Input.GetKeyDown(KeyCode.Z);
         }
     }
+
+    public bool MoveToBullet(OVRInput.Controller controller)
+    {
+        return Input.GetKeyDown(KeyCode.Q);
+    }
 }

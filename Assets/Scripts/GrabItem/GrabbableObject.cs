@@ -10,7 +10,7 @@ public class GrabbableObject : MonoBehaviour, IGrabbable
     private LayerMask grabbableLayer;
     private Transform myTfm = null;
 
-    private void Awake()
+    private void Start()
     {
         grabbableLayer = gameObject.layer;
         myTfm = transform;
@@ -37,7 +37,7 @@ public class GrabbableObject : MonoBehaviour, IGrabbable
             Debug.Log("Grab : InvalidControllerType");
         }
         
-        // ignoreRayCast
+        // ignoreRayCastに設定
         gameObject.layer = 2;
     }
 
